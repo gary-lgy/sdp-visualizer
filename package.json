@@ -19,7 +19,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "tsc": "tsc",
+    "lint": "eslint --ext .js,.ts,.jsx,.tsx src",
+    "lint:fix": "eslint --ext .js,.ts,.jsx,.tsx src --fix",
+    "format": "prettier --check \"src/**/*.{js,ts,jsx,tsx,scss}\"",
+    "format:fix": "prettier --write \"src/**/*.{js,ts,jsx,tsx,scss}\"",
+    "check": "npm run tsc && npm run lint && npm run format",
+    "fix": "npm run lint:fix && npm run format:fix"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5"
   }
 }
