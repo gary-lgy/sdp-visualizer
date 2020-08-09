@@ -29,6 +29,13 @@ describe("Attribute", () => {
     expect(parsed?.value).toBe("0");
   });
 
+  test("key value with dash", () => {
+    const parsed = Attribute.parse("a=ice-ufrag:Oyef7uvBlwafI3hT");
+    expect(parsed).not.toBeNull();
+    expect(parsed?.key).toBe("ice-ufrag");
+    expect(parsed?.value).toBe("Oyef7uvBlwafI3hT");
+  });
+
   test("key value (multiple words)", () => {
     const testCases = [
       [
