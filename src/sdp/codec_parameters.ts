@@ -7,7 +7,7 @@ export class CodecParameters implements SDPSection {
 
   readonly lines: string[];
   readonly subSections: SDPSection[] = [];
-  readonly error: string;
+  readonly errors: string[] = [];
   readonly overview: string;
 
   readonly payloadType: string = "";
@@ -17,7 +17,7 @@ export class CodecParameters implements SDPSection {
   constructor(raw: string[]) {
     this.lines = raw.slice();
     if (raw.length === 0) {
-      this.error = CodecParameters.EMPTY_SECTION_ERR;
+      this.errors.push(CodecParameters.EMPTY_SECTION_ERR);
       this.overview = "";
       return;
     }
@@ -26,7 +26,7 @@ export class CodecParameters implements SDPSection {
     const firstLine = raw[0];
     const matchResult = firstLine.match(CodecParameters.RTPMAP_REGEX);
     if (matchResult === null) {
-      this.error = CodecParameters.INVALID_RTPMAP_ERR;
+      this.errors.push(CodecParameters.INVALID_RTPMAP_ERR);
       this.overview = "";
       return;
     }
@@ -34,7 +34,6 @@ export class CodecParameters implements SDPSection {
     this.payloadType = matchResult.groups?.payloadType ?? "";
     this.codecName = matchResult.groups?.codecName ?? "";
     this.clockrate = matchResult.groups?.clockrate ?? "";
-    this.error = "";
     this.overview = `rtpmap ${this.payloadType} ${this.codecName} ${this.clockrate}`;
   }
 }
