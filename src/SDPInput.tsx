@@ -5,6 +5,7 @@ import {
   makeStyles,
   Theme,
   useTheme,
+  Box,
 } from "@material-ui/core";
 
 interface Props {
@@ -18,8 +19,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center",
     margin: theme.spacing(2),
   },
-  submitButton: {
+  buttonGroup: {
     margin: theme.spacing(2),
+    "& > *": {
+      margin: theme.spacing(2),
+    },
   },
 }));
 
@@ -54,15 +58,24 @@ export const SDPInput: React.FC<Props> = (props) => {
         fullWidth
         placeholder="Paste the SDP here"
       />
-      <Button
-        type="submit"
-        color="primary"
-        variant="contained"
-        className={classes.submitButton}
-        disabled={props.sdp.length === 0}
-      >
-        Visualize
-      </Button>
+      <Box className={classes.buttonGroup}>
+        <Button
+          color="secondary"
+          variant="contained"
+          disabled={props.sdp.length === 0}
+          onClick={() => props.setSDP("")}
+        >
+          Clear
+        </Button>
+        <Button
+          type="submit"
+          color="primary"
+          variant="contained"
+          disabled={props.sdp.length === 0}
+        >
+          Visualize
+        </Button>
+      </Box>
     </form>
   );
 };
