@@ -3,7 +3,7 @@ import { SDPSection } from "./types";
 export class CodecParameters implements SDPSection {
   private static readonly RTPMAP_REGEX = /a=rtpmap:(?<payloadType>\d+) (?<codecName>\w+)\/(?<clockrate>\d+)/;
 
-  readonly lines: string[];
+  readonly ownLines: string[];
   readonly subSections: SDPSection[] = [];
 
   readonly payloadType: string | null = null;
@@ -19,7 +19,7 @@ export class CodecParameters implements SDPSection {
   }
 
   constructor(raw: string[]) {
-    this.lines = raw.slice();
+    this.ownLines = raw.slice();
     if (raw.length === 0) {
       return;
     }

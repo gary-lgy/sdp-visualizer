@@ -4,7 +4,7 @@ describe("CodecParameters", () => {
   test("empty input => invalid", () => {
     const parsed = new CodecParameters([]);
     expect(parsed.overview).toStrictEqual("rtpmap pt:? codec:? clockrate:?");
-    expect(parsed.lines).toStrictEqual([]);
+    expect(parsed.ownLines).toStrictEqual([]);
     expect(parsed.subSections).toStrictEqual([]);
     expect(parsed.payloadType).toBeNull();
     expect(parsed.codecName).toBeNull();
@@ -15,7 +15,7 @@ describe("CodecParameters", () => {
     const lines = ["a=rtcp-fb:100 ccm fir"];
     const parsed = new CodecParameters(lines);
     expect(parsed.overview).toStrictEqual("rtpmap pt:? codec:? clockrate:?");
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
     expect(parsed.payloadType).toBeNull();
     expect(parsed.codecName).toBeNull();
@@ -28,7 +28,7 @@ describe("CodecParameters", () => {
     expect(parsed.overview).toStrictEqual(
       "rtpmap pt:100 codec:VP8 clockrate:90000"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
     expect(parsed.payloadType).toStrictEqual("100");
     expect(parsed.codecName).toStrictEqual("VP8");
@@ -41,7 +41,7 @@ describe("CodecParameters", () => {
     expect(parsed.overview).toStrictEqual(
       "rtpmap pt:100 codec:VP8 clockrate:90000"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
     expect(parsed.payloadType).toStrictEqual("100");
     expect(parsed.codecName).toStrictEqual("VP8");
@@ -60,7 +60,7 @@ describe("CodecParameters", () => {
     expect(parsed.overview).toStrictEqual(
       "rtpmap pt:100 codec:VP8 clockrate:90000"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
     expect(parsed.payloadType).toStrictEqual("100");
     expect(parsed.codecName).toStrictEqual("VP8");

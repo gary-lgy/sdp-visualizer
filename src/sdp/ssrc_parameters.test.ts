@@ -19,7 +19,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [2231627014] id:? label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["2231627014"]);
@@ -36,7 +36,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [3570614608] id:? label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
@@ -53,7 +53,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [3570614608] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
@@ -70,7 +70,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [3570614608] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
@@ -88,7 +88,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [3570614608] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
@@ -107,7 +107,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [3570614608] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
@@ -126,7 +126,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [3570614608 2912387382] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["3570614608", "2912387382"]);
@@ -145,7 +145,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [3570614608] id:daed9400-d0dd-4db3-b949-422499e96e2d label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
@@ -164,7 +164,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [3570614608] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
@@ -183,7 +183,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [3570614608 1298345897] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["3570614608", "1298345897"]);
@@ -200,7 +200,7 @@ describe("SSRCParameters", () => {
     ];
     for (let lines of testCases) {
       const parsed = new SSRCParameters(lines);
-      expect(parsed.lines).toStrictEqual(lines);
+      expect(parsed.ownLines).toStrictEqual(lines);
       expect(parsed.subSections).toStrictEqual([]);
     }
   });
@@ -219,7 +219,7 @@ describe("SSRCParameters", () => {
     expect(parsed.overview).toBe(
       "ssrc [2231627014 632943048] id:daed9400-d0dd-4db3-b949-422499e96e2d label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.ownLines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
     expect(parsed.ssrcs).toStrictEqual(["2231627014", "632943048"]);

@@ -3,7 +3,7 @@ import { SDPSection } from "./types";
 export class SSRCParameters implements SDPSection {
   static readonly SSRC_LINE_REGEX = /^a=ssrc:(?<ssrc>\d+) (?<type>\w+):(?<rest>.+)$/;
 
-  readonly lines: string[];
+  readonly ownLines: string[];
   readonly subSections: SDPSection[] = [];
 
   readonly ssrcs: string[] = [];
@@ -11,7 +11,7 @@ export class SSRCParameters implements SDPSection {
   readonly label: string | null = null;
 
   constructor(inputLines: string[]) {
-    this.lines = inputLines.slice();
+    this.ownLines = inputLines.slice();
     if (inputLines.length === 0) {
       return;
     }
