@@ -2,12 +2,9 @@ import { SDPSection } from "./types";
 
 export class CodecParameters implements SDPSection {
   private static readonly RTPMAP_REGEX = /a=rtpmap:(?<payloadType>\d+) (?<codecName>\w+)\/(?<clockrate>\d+)/;
-  static readonly INVALID_RTPMAP_ERR = "first line is not rtpmap";
-  static readonly EMPTY_SECTION_ERR = "section is empty";
 
   readonly lines: string[];
   readonly subSections: SDPSection[] = [];
-  readonly errors: string[] = [];
 
   readonly payloadType: string | null = null;
   readonly codecName: string | null = null;
@@ -24,7 +21,6 @@ export class CodecParameters implements SDPSection {
   constructor(raw: string[]) {
     this.lines = raw.slice();
     if (raw.length === 0) {
-      this.errors.push(CodecParameters.EMPTY_SECTION_ERR);
       return;
     }
 
@@ -32,7 +28,6 @@ export class CodecParameters implements SDPSection {
     const firstLine = raw[0];
     const matchResult = firstLine.match(CodecParameters.RTPMAP_REGEX);
     if (matchResult === null) {
-      this.errors.push(CodecParameters.INVALID_RTPMAP_ERR);
       return;
     }
 

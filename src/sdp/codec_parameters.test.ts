@@ -3,7 +3,6 @@ import { CodecParameters } from "./codec_parameters";
 describe("CodecParameters", () => {
   test("empty input => invalid", () => {
     const parsed = new CodecParameters([]);
-    expect(parsed.errors).toStrictEqual([CodecParameters.EMPTY_SECTION_ERR]);
     expect(parsed.overview).toStrictEqual("rtpmap pt:? codec:? clockrate:?");
     expect(parsed.lines).toStrictEqual([]);
     expect(parsed.subSections).toStrictEqual([]);
@@ -15,7 +14,6 @@ describe("CodecParameters", () => {
   test("first line is not rtpmap => invalid", () => {
     const lines = ["a=rtcp-fb:100 ccm fir"];
     const parsed = new CodecParameters(lines);
-    expect(parsed.errors).toStrictEqual([CodecParameters.INVALID_RTPMAP_ERR]);
     expect(parsed.overview).toStrictEqual("rtpmap pt:? codec:? clockrate:?");
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
@@ -27,7 +25,6 @@ describe("CodecParameters", () => {
   test("one rtpmap line", () => {
     const lines = ["a=rtpmap:100 VP8/90000"];
     const parsed = new CodecParameters(lines);
-    expect(parsed.errors).toStrictEqual([]);
     expect(parsed.overview).toStrictEqual(
       "rtpmap pt:100 codec:VP8 clockrate:90000"
     );
@@ -41,7 +38,6 @@ describe("CodecParameters", () => {
   test("one rtpmap line followed a rtcp-fb line", () => {
     const lines = ["a=rtpmap:100 VP8/90000", "a=rtcp-fb:100 ccm fir"];
     const parsed = new CodecParameters(lines);
-    expect(parsed.errors).toStrictEqual([]);
     expect(parsed.overview).toStrictEqual(
       "rtpmap pt:100 codec:VP8 clockrate:90000"
     );
@@ -61,7 +57,6 @@ describe("CodecParameters", () => {
       "a=rtcp-fb:100 goog-remb",
     ];
     const parsed = new CodecParameters(lines);
-    expect(parsed.errors).toStrictEqual([]);
     expect(parsed.overview).toStrictEqual(
       "rtpmap pt:100 codec:VP8 clockrate:90000"
     );
