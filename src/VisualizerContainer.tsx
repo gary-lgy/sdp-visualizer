@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SDPInput } from "./SDPInput";
+import { SDPVisualizer } from "./SDPVisualizer";
 
 type Mode = "input" | "visualize";
 
@@ -7,15 +8,21 @@ export const VisualizerContainer: React.FC = () => {
   const [mode, setMode] = useState<Mode>("input");
   const [sdp, setSDP] = useState("");
 
-  const handleStartToVisualize = () => {
+  const handleStartVisualization = () => {
     setMode("visualize");
+  };
+
+  const handleEndVisualization = () => {
+    setMode("input");
   };
 
   if (mode === "input") {
     return (
-      <SDPInput onSubmit={handleStartToVisualize} sdp={sdp} setSDP={setSDP} />
+      <SDPInput onSubmit={handleStartVisualization} sdp={sdp} setSDP={setSDP} />
     );
   } else {
-    return <b>{sdp}</b>;
+    return (
+      <SDPVisualizer sdp={sdp} onEndVisualization={handleEndVisualization} />
+    );
   }
 };
