@@ -4,7 +4,7 @@ describe("SSRCParameters", () => {
   test("empty input => invalid", () => {
     const parsed = new SSRCParameters([]);
     expect(parsed.errors).toStrictEqual([SSRCParameters.EMPTY_SECTION_ERR]);
-    expect(parsed.overview).toBe("");
+    expect(parsed.overview).toBe("ssrc [] id:? label:?");
   });
 
   test("first line does not contain ssrc", () => {
@@ -12,18 +12,20 @@ describe("SSRCParameters", () => {
       "a=candidate:1467250027 1 udp 2122260223 192.168.0.196 56143 typ host generation 0",
     ]);
     expect(parsed.errors).toStrictEqual([SSRCParameters.INVALID_SSRC_LINE_ERR]);
-    expect(parsed.overview).toBe("");
+    expect(parsed.overview).toBe("ssrc [] id:? label:?");
   });
 
   test("first line is ssrc with cname", () => {
     const lines = ["a=ssrc:2231627014 cname:4TOk42mSjXCkVIa6"];
     const parsed = new SSRCParameters(lines);
-    expect(parsed.overview).toBe("ssrc 2231627014 id:? label:4TOk42mSjXCkVIa6");
+    expect(parsed.overview).toBe(
+      "ssrc [2231627014] id:? label:4TOk42mSjXCkVIa6"
+    );
     expect(parsed.errors).toStrictEqual([]);
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
-    expect(parsed.ssrc).toBe("2231627014");
+    expect(parsed.ssrcs).toStrictEqual(["2231627014"]);
     expect(parsed.id).toBeNull();
     expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
@@ -34,12 +36,14 @@ describe("SSRCParameters", () => {
       "a=ssrc:3570614608 mslabel:4TOk42mSjXCkVIa6",
     ];
     const parsed = new SSRCParameters(lines);
-    expect(parsed.overview).toBe("ssrc 3570614608 id:? label:4TOk42mSjXCkVIa6");
+    expect(parsed.overview).toBe(
+      "ssrc [3570614608] id:? label:4TOk42mSjXCkVIa6"
+    );
     expect(parsed.errors).toStrictEqual([]);
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
-    expect(parsed.ssrc).toBe("3570614608");
+    expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
     expect(parsed.id).toBeNull();
     expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
@@ -51,13 +55,13 @@ describe("SSRCParameters", () => {
     ];
     const parsed = new SSRCParameters(lines);
     expect(parsed.overview).toBe(
-      "ssrc 3570614608 id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
+      "ssrc [3570614608] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
     expect(parsed.errors).toStrictEqual([]);
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
-    expect(parsed.ssrc).toBe("3570614608");
+    expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
     expect(parsed.id).toBe("35429d94-5637-4686-9ecd-7d0622261ce8");
     expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
@@ -69,13 +73,13 @@ describe("SSRCParameters", () => {
     ];
     const parsed = new SSRCParameters(lines);
     expect(parsed.overview).toBe(
-      "ssrc 3570614608 id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
+      "ssrc [3570614608] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
     expect(parsed.errors).toStrictEqual([]);
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
-    expect(parsed.ssrc).toBe("3570614608");
+    expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
     expect(parsed.id).toBe("35429d94-5637-4686-9ecd-7d0622261ce8");
     expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
@@ -88,13 +92,13 @@ describe("SSRCParameters", () => {
     ];
     const parsed = new SSRCParameters(lines);
     expect(parsed.overview).toBe(
-      "ssrc 3570614608 id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
+      "ssrc [3570614608] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
     expect(parsed.errors).toStrictEqual([]);
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
-    expect(parsed.ssrc).toBe("3570614608");
+    expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
     expect(parsed.id).toBe("35429d94-5637-4686-9ecd-7d0622261ce8");
     expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
@@ -108,18 +112,18 @@ describe("SSRCParameters", () => {
     ];
     const parsed = new SSRCParameters(lines);
     expect(parsed.overview).toBe(
-      "ssrc 3570614608 id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
+      "ssrc [3570614608] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
     expect(parsed.errors).toStrictEqual([]);
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
-    expect(parsed.ssrc).toBe("3570614608");
+    expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
     expect(parsed.id).toBe("35429d94-5637-4686-9ecd-7d0622261ce8");
     expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
 
-  test("conflicting ssrc", () => {
+  test("multiple ssrcs", () => {
     const lines = [
       "a=ssrc:3570614608 cname:4TOk42mSjXCkVIa6",
       "a=ssrc:2912387382 label:35429d94-5637-4686-9ecd-7d0622261ce8",
@@ -128,13 +132,13 @@ describe("SSRCParameters", () => {
     ];
     const parsed = new SSRCParameters(lines);
     expect(parsed.overview).toBe(
-      "ssrc 3570614608 id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
+      "ssrc [3570614608 2912387382] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.errors).toStrictEqual([SSRCParameters.MULTIPLE_SSRC_ERR]);
+    expect(parsed.errors).toStrictEqual([]);
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
-    expect(parsed.ssrc).toBe("3570614608");
+    expect(parsed.ssrcs).toStrictEqual(["3570614608", "2912387382"]);
     expect(parsed.id).toBe("35429d94-5637-4686-9ecd-7d0622261ce8");
     expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
@@ -148,13 +152,13 @@ describe("SSRCParameters", () => {
     ];
     const parsed = new SSRCParameters(lines);
     expect(parsed.overview).toBe(
-      "ssrc 3570614608 id:daed9400-d0dd-4db3-b949-422499e96e2d label:4TOk42mSjXCkVIa6"
+      "ssrc [3570614608] id:daed9400-d0dd-4db3-b949-422499e96e2d label:4TOk42mSjXCkVIa6"
     );
     expect(parsed.errors).toStrictEqual([SSRCParameters.MULTIPLE_ID_ERR]);
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
-    expect(parsed.ssrc).toBe("3570614608");
+    expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
     expect(parsed.id).toBe("daed9400-d0dd-4db3-b949-422499e96e2d");
     expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
@@ -168,14 +172,14 @@ describe("SSRCParameters", () => {
     ];
     const parsed = new SSRCParameters(lines);
     expect(parsed.overview).toBe(
-      "ssrc 3570614608 id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
+      "ssrc [3570614608] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
     expect(parsed.errors.length).toBe(1);
     expect(parsed.errors).toContain(SSRCParameters.MULTIPLE_LABEL_ERR);
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
-    expect(parsed.ssrc).toBe("3570614608");
+    expect(parsed.ssrcs).toStrictEqual(["3570614608"]);
     expect(parsed.id).toBe("35429d94-5637-4686-9ecd-7d0622261ce8");
     expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
@@ -189,16 +193,15 @@ describe("SSRCParameters", () => {
     ];
     const parsed = new SSRCParameters(lines);
     expect(parsed.overview).toBe(
-      "ssrc 3570614608 id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
+      "ssrc [3570614608 1298345897] id:35429d94-5637-4686-9ecd-7d0622261ce8 label:4TOk42mSjXCkVIa6"
     );
-    expect(parsed.errors.length).toBe(3);
-    expect(parsed.errors).toContain(SSRCParameters.MULTIPLE_SSRC_ERR);
+    expect(parsed.errors.length).toBe(2);
     expect(parsed.errors).toContain(SSRCParameters.MULTIPLE_LABEL_ERR);
     expect(parsed.errors).toContain(SSRCParameters.MULTIPLE_ID_ERR);
     expect(parsed.lines).toStrictEqual(lines);
     expect(parsed.subSections).toStrictEqual([]);
 
-    expect(parsed.ssrc).toBe("3570614608");
+    expect(parsed.ssrcs).toStrictEqual(["3570614608", "1298345897"]);
     expect(parsed.id).toBe("35429d94-5637-4686-9ecd-7d0622261ce8");
     expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
@@ -218,5 +221,28 @@ describe("SSRCParameters", () => {
       expect(parsed.lines).toStrictEqual(lines);
       expect(parsed.subSections).toStrictEqual([]);
     }
+  });
+
+  test("two SSRCs with FID", () => {
+    const lines = [
+      "a=ssrc-group:FID 2231627014 632943048",
+      "a=ssrc:2231627014 cname:4TOk42mSjXCkVIa6",
+      "a=ssrc:2231627014 msid:4TOk42mSjXCkVIa6 daed9400-d0dd-4db3-b949-422499e96e2d",
+      "a=ssrc:2231627014 mslabel:4TOk42mSjXCkVIa6",
+      "a=ssrc:2231627014 label:daed9400-d0dd-4db3-b949-422499e96e2d",
+      "a=ssrc:632943048 cname:4TOk42mSjXCkVIa6",
+      "a=ssrc:632943048 msid:4TOk42mSjXCkVIa6 daed9400-d0dd-4db3-b949-422499e96e2d",
+    ];
+    const parsed = new SSRCParameters(lines);
+    expect(parsed.overview).toBe(
+      "ssrc [2231627014 632943048] id:daed9400-d0dd-4db3-b949-422499e96e2d label:4TOk42mSjXCkVIa6"
+    );
+    expect(parsed.errors).toStrictEqual([]);
+    expect(parsed.lines).toStrictEqual(lines);
+    expect(parsed.subSections).toStrictEqual([]);
+
+    expect(parsed.ssrcs).toStrictEqual(["2231627014", "632943048"]);
+    expect(parsed.id).toBe("daed9400-d0dd-4db3-b949-422499e96e2d");
+    expect(parsed.label).toBe("4TOk42mSjXCkVIa6");
   });
 });

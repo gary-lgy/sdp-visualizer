@@ -4,8 +4,6 @@ export class SSRCParameters implements SDPSection {
   static readonly SSRC_LINE_REGEX = /^a=ssrc:(?<ssrc>\d+) (?<type>\w+):(?<rest>.+)$/;
   static readonly EMPTY_SECTION_ERR = "section is empty";
   static readonly INVALID_SSRC_LINE_ERR = "contains invalid ssrc line(s)";
-  static readonly MULTIPLE_SSRC_ERR =
-    "contains multiple SSRCs not related by an FID line";
   static readonly MULTIPLE_ID_ERR = "contains multiple ids";
   static readonly MULTIPLE_LABEL_ERR = "contains multiple labels";
 
@@ -13,9 +11,7 @@ export class SSRCParameters implements SDPSection {
   readonly subSections: SDPSection[] = [];
   readonly errors: string[] = [];
 
-  private hasOverview: boolean = false;
-
-  readonly ssrc: string | null = null;
+  readonly ssrcs: string[] = [];
   readonly id: string | null = null;
   readonly label: string | null = null;
 
@@ -27,6 +23,18 @@ export class SSRCParameters implements SDPSection {
     }
 
     for (let line of inputLines) {
+      if (line.startsWith("a=ssrc-group:FID")) {
+        const rest = line
+          .substring("a=ssrc-group:FID".length, line.length)
+          .trim();
+        for (let ssrc of rest.split(/\s+/)) {
+          if (!this.ssrcs.includes(ssrc)) {
+            this.ssrcs.push(ssrc);
+          }
+        }
+        continue;
+      }
+
       const matchResult = line.match(SSRCParameters.SSRC_LINE_REGEX);
       if (matchResult === null) {
         this.addError(SSRCParameters.INVALID_SSRC_LINE_ERR);
@@ -37,10 +45,8 @@ export class SSRCParameters implements SDPSection {
         this.addError(SSRCParameters.INVALID_SSRC_LINE_ERR);
         continue;
       }
-      if (this.ssrc === null) {
-        this.ssrc = ssrc;
-      } else if (this.ssrc !== ssrc) {
-        this.addError(SSRCParameters.MULTIPLE_SSRC_ERR);
+      if (!this.ssrcs.includes(ssrc)) {
+        this.ssrcs.push(ssrc);
       }
       const type = matchResult.groups?.type;
       const rest = matchResult.groups?.rest;
@@ -91,10 +97,6 @@ export class SSRCParameters implements SDPSection {
           break;
       }
     }
-
-    if (this.ssrc || this.id || this.label) {
-      this.hasOverview = true;
-    }
   }
 
   private addError(error: string) {
@@ -105,12 +107,9 @@ export class SSRCParameters implements SDPSection {
   }
 
   get overview(): string {
-    if (!this.hasOverview) {
-      return "";
-    }
     return (
       "ssrc " +
-      `${this.ssrc ?? "?"} ` +
+      `[${this.ssrcs.join(" ")}] ` +
       `id:${this.id ?? "?"} ` +
       `label:${this.label ?? "?"}`
     );
