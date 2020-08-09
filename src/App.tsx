@@ -1,7 +1,15 @@
 import React from "react";
+import { Box, CssBaseline, Typography } from "@material-ui/core";
+import { VisualizerContainer } from "./VisualizerContainer";
 
 function App() {
-  return <div className="App">SDP Visualizer</div>;
+  return (
+    <Box>
+      <CssBaseline />
+      <Typography variant="h3">SDP Visualizer</Typography>
+      <VisualizerContainer />
+    </Box>
+  );
 }
 
 export default App;
