@@ -8,17 +8,23 @@ export class CodecParameters implements SDPSection {
   readonly lines: string[];
   readonly subSections: SDPSection[] = [];
   readonly errors: string[] = [];
-  readonly overview: string;
 
-  readonly payloadType: string = "";
-  readonly codecName: string = "";
-  readonly clockrate: string = "";
+  readonly payloadType: string | null = null;
+  readonly codecName: string | null = null;
+  readonly clockrate: string | null = null;
+  get overview(): string {
+    return (
+      "rtpmap " +
+      `pt:${this.payloadType ?? "?"} ` +
+      `codec:${this.codecName ?? "?"} ` +
+      `clockrate:${this.clockrate ?? "?"}`
+    );
+  }
 
   constructor(raw: string[]) {
     this.lines = raw.slice();
     if (raw.length === 0) {
       this.errors.push(CodecParameters.EMPTY_SECTION_ERR);
-      this.overview = "";
       return;
     }
 
@@ -27,13 +33,11 @@ export class CodecParameters implements SDPSection {
     const matchResult = firstLine.match(CodecParameters.RTPMAP_REGEX);
     if (matchResult === null) {
       this.errors.push(CodecParameters.INVALID_RTPMAP_ERR);
-      this.overview = "";
       return;
     }
 
-    this.payloadType = matchResult.groups?.payloadType ?? "";
-    this.codecName = matchResult.groups?.codecName ?? "";
-    this.clockrate = matchResult.groups?.clockrate ?? "";
-    this.overview = `rtpmap ${this.payloadType} ${this.codecName} ${this.clockrate}`;
+    this.payloadType = matchResult.groups?.payloadType ?? null;
+    this.codecName = matchResult.groups?.codecName ?? null;
+    this.clockrate = matchResult.groups?.clockrate ?? null;
   }
 }
