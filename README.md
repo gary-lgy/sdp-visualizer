@@ -14,11 +14,15 @@ This project aims to alleviate the pain of reading long session descriptions by 
 
 ![Screenshot](./screenshot.gif)
 
-## Technologies used
+## Trivia
+
+Technologies used:
 
 - TypeScript
 - React
 - Material UI.
+
+The SDP parsing code is developed with TDD using Jest.
 
 ## License
 
