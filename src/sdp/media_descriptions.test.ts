@@ -1,12 +1,12 @@
-import { MediaDescription } from "./media_description";
 import { CodecParameters } from "./codec_parameters";
+import { MediaDescription } from "./media_description";
 import { SSRCParameters } from "./ssrc_parameters";
 
 describe("MediaDescription", () => {
   test("empty input => invalid", () => {
     const parsed = new MediaDescription([]);
     expect(parsed.ownLines).toStrictEqual([]);
-    expect(parsed.overview).toStrictEqual("? mid:? dir:? ssrcs:[]");
+    expect(parsed.overview).toStrictEqual("mid:? media:? dir:?");
     expect(parsed.subSections).toStrictEqual([]);
     expect(parsed.mid).toBeNull();
     expect(parsed.mediaType).toBeNull();
@@ -21,7 +21,7 @@ describe("MediaDescription", () => {
     ];
     const parsed = new MediaDescription(lines);
     expect(parsed.ownLines).toStrictEqual(lines);
-    expect(parsed.overview).toStrictEqual("audio mid:? dir:? ssrcs:[]");
+    expect(parsed.overview).toStrictEqual("mid:? audio dir:?");
     expect(parsed.subSections).toStrictEqual([]);
     expect(parsed.mid).toBeNull();
     expect(parsed.mediaType).toStrictEqual("audio");
@@ -54,7 +54,7 @@ describe("MediaDescription", () => {
     ];
     const parsed = new MediaDescription(lines);
     expect(parsed.ownLines).toStrictEqual(lines);
-    expect(parsed.overview).toStrictEqual("video mid:1 dir:sendrecv ssrcs:[]");
+    expect(parsed.overview).toStrictEqual("1 video sendrecv");
     expect(parsed.subSections).toStrictEqual([]);
     expect(parsed.mid).toStrictEqual("1");
     expect(parsed.mediaType).toStrictEqual("video");
@@ -109,7 +109,7 @@ describe("MediaDescription", () => {
       new CodecParameters(lines.slice(31, 33)),
     ];
     expect(parsed.ownLines).toStrictEqual(ownLines);
-    expect(parsed.overview).toStrictEqual("video mid:2 dir:recvonly ssrcs:[]");
+    expect(parsed.overview).toStrictEqual("2 video recvonly");
     expect(parsed.subSections).toStrictEqual(codecParameters);
     expect(parsed.mid).toStrictEqual("2");
     expect(parsed.mediaType).toStrictEqual("video");
@@ -174,7 +174,7 @@ describe("MediaDescription", () => {
     const subSections = [...codecParameters, ssrcParameters];
     expect(parsed.ownLines).toStrictEqual(ownLines);
     expect(parsed.overview).toStrictEqual(
-      "video mid:3 dir:sendonly ssrcs:[2231627014 632943048]"
+      "3 video sendonly ssrcs:[2231627014 632943048]"
     );
     expect(parsed.subSections).toStrictEqual(subSections);
     expect(parsed.mid).toStrictEqual("3");
@@ -244,7 +244,7 @@ describe("MediaDescription", () => {
     const subSections = [...codecParameters, ssrcParameters];
     expect(parsed.ownLines).toStrictEqual(ownLines);
     expect(parsed.overview).toStrictEqual(
-      "video mid:4 dir:sendrecv ssrcs:[2231627014 632943048] simulcast:[h send,m send,l send]"
+      "4 video sendrecv ssrcs:[2231627014 632943048] simulcast:[h send,m send,l send]"
     );
     expect(parsed.subSections).toStrictEqual(subSections);
     expect(parsed.mid).toStrictEqual("4");

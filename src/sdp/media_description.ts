@@ -1,7 +1,7 @@
-import { SDPSection } from "./types";
+import { Attribute } from "./attribute";
 import { CodecParameters } from "./codec_parameters";
 import { SSRCParameters } from "./ssrc_parameters";
-import { Attribute } from "./attribute";
+import { SDPSection } from "./types";
 
 export class MediaDescription implements SDPSection {
   static readonly EMPTY_SECTION_ERR = "section is empty";
@@ -23,11 +23,18 @@ export class MediaDescription implements SDPSection {
     if (this.hasSimulcast) {
       simulcast = ` simulcast:[${this.simulcastStreams.join(",")}]`;
     }
+    let ssrcs = "";
+    if (
+      this.ssrcParameters !== null &&
+      this.ssrcParameters.ssrcs.length !== 0
+    ) {
+      ssrcs = ` ssrcs:[${this.ssrcParameters.ssrcs.join(" ")}]`;
+    }
     return (
-      `${this.mediaType ?? "?"} ` +
-      `mid:${this.mid ?? "?"} ` +
-      `dir:${this.direction ?? "?"} ` +
-      `ssrcs:[${this.ssrcParameters?.ssrcs?.join(" ") ?? ""}]` +
+      `${this.mid ?? "mid:?"} ` +
+      `${this.mediaType ?? "media:?"} ` +
+      `${this.direction ?? "dir:?"}` +
+      ssrcs +
       simulcast
     );
   }
@@ -46,7 +53,6 @@ export class MediaDescription implements SDPSection {
       return;
     }
 
-    // TODO: change constructors to take in Attribute instead of line
     const ssrcLines: string[] = [];
     const codecLines: [string, Attribute][] = [];
     for (let line of lines) {
