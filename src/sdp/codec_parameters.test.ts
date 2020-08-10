@@ -77,4 +77,17 @@ describe("CodecParameters", () => {
     expect(parsed.codecName).toBeNull();
     expect(parsed.clockrate).toBeNull();
   });
+
+  test("codec name with dash(-)", () => {
+    const lines = ["a=rtpmap:110 telephone-event/48000"];
+    const parsed = new CodecParameters(lines);
+    expect(parsed.overview).toStrictEqual(
+      "rtpmap pt:110 codec:telephone-event clockrate:48000"
+    );
+    expect(parsed.ownLines).toStrictEqual(lines);
+    expect(parsed.subSections).toStrictEqual([]);
+    expect(parsed.payloadType).toStrictEqual("110");
+    expect(parsed.codecName).toStrictEqual("telephone-event");
+    expect(parsed.clockrate).toStrictEqual("48000");
+  });
 });
