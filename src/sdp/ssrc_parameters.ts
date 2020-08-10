@@ -7,6 +7,7 @@ export class SSRCParameters implements SDPSection {
   readonly subSections: SDPSection[] = [];
 
   readonly ssrcs: string[] = [];
+  readonly cname: string | null = null;
   readonly id: string | null = null;
   readonly label: string | null = null;
 
@@ -47,19 +48,28 @@ export class SSRCParameters implements SDPSection {
       }
       switch (type) {
         case "cname":
+          // cname:cname
+          if (this.cname !== null && this.cname !== rest) {
+            break;
+          }
+          this.cname = rest;
+          break;
         case "mslabel":
+          // mslabel:label
           if (this.label !== null && this.label !== rest) {
             break;
           }
           this.label = rest;
           break;
         case "label":
+          // label:id
           if (this.id !== null && this.id !== rest) {
             break;
           }
           this.id = rest;
           break;
         case "msid":
+          // msid:label id
           const restSplit = rest.split(/\s+/);
           if (restSplit.length !== 2) {
             break;
