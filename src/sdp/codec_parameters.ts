@@ -1,20 +1,19 @@
 import { SDPSection } from "./types";
 
 export class CodecParameters implements SDPSection {
-  private static readonly RTPMAP_REGEX = /^a=rtpmap:(?<payloadType>\d+) (?<codecName>[\w-]+)\/(?<clockrate>\d+)$/;
+  private static readonly RTPMAP_REGEX = /^a=rtpmap:(?<payloadType>\d+) (?<codec>.+)$/;
 
   readonly ownLines: string[];
   readonly subSections: SDPSection[] = [];
 
   readonly payloadType: string | null = null;
-  readonly codecName: string | null = null;
-  readonly clockrate: string | null = null;
+  readonly codec: string | null = null;
+
   get overview(): string {
     return (
       "rtpmap " +
       `pt:${this.payloadType ?? "?"} ` +
-      `codec:${this.codecName ?? "?"} ` +
-      `clockrate:${this.clockrate ?? "?"}`
+      `codec:${this.codec ?? "?"}`
     );
   }
 
@@ -32,7 +31,6 @@ export class CodecParameters implements SDPSection {
     }
 
     this.payloadType = matchResult.groups?.payloadType ?? null;
-    this.codecName = matchResult.groups?.codecName ?? null;
-    this.clockrate = matchResult.groups?.clockrate ?? null;
+    this.codec = matchResult.groups?.codec ?? null;
   }
 }
