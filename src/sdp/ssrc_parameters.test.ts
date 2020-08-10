@@ -196,6 +196,7 @@ describe("SSRCParameters", () => {
       ["a=ssrc:3570614608 unknown:4TOk42mSjXCkVIa6"],
       ["a=ssrc: label:4TOk42mSjXCkVIa6"],
       ["a=ssrc:3570614608 cname:"],
+      ["123a=ssrc:3570614608 cname:"],
       ["a=msid-semantic: WMS lgsCFqt9kN2fVKw5wg3NKqGdATQoltEwOdMS"],
     ];
     for (let lines of testCases) {
