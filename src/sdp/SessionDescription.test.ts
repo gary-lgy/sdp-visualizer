@@ -1,9 +1,9 @@
-import { SessionDescriptions } from "./session_description";
-import { MediaDescription } from "./media_description";
+import { MediaDescription } from "./MediaDescription";
+import { SessionDescription } from "./SessionDescription";
 
 describe("SessionDescription", () => {
   test("empty input => invalid", () => {
-    const parsed = new SessionDescriptions([]);
+    const parsed = new SessionDescription([]);
     expect(parsed.overview).toStrictEqual(
       "session audio:0 video:0 application:0 unknown:0"
     );
@@ -20,7 +20,7 @@ describe("SessionDescription", () => {
       "a=group:BUNDLE 0 1",
       "a=msid-semantic: WMS lgsCFqt9kN2fVKw5wg3NKqGdATQoltEwOdMS",
     ];
-    const parsed = new SessionDescriptions(lines);
+    const parsed = new SessionDescription(lines);
     expect(parsed.overview).toStrictEqual(
       "session audio:0 video:0 application:0 unknown:0"
     );
@@ -76,7 +76,7 @@ describe("SessionDescription", () => {
     const ownLines = lines.slice(0, 5);
     const audioLines = lines.slice(5, 41);
     const audioDescription = new MediaDescription(audioLines);
-    const parsed = new SessionDescriptions(lines);
+    const parsed = new SessionDescription(lines);
     expect(parsed.overview).toStrictEqual(
       "session audio:1 video:0 application:0 unknown:0"
     );
@@ -138,7 +138,7 @@ describe("SessionDescription", () => {
     const ownLines = lines.slice(0, 5);
     const videoLines = lines.slice(5, 47);
     const videoDescription = new MediaDescription(videoLines);
-    const parsed = new SessionDescriptions(lines);
+    const parsed = new SessionDescription(lines);
     expect(parsed.overview).toStrictEqual(
       "session audio:0 video:1 application:0 unknown:0"
     );
@@ -169,7 +169,7 @@ describe("SessionDescription", () => {
     const ownLines = lines.slice(0, 5);
     const dataChannelLines = lines.slice(5, 16);
     const dataChannelDescription = new MediaDescription(dataChannelLines);
-    const parsed = new SessionDescriptions(lines);
+    const parsed = new SessionDescription(lines);
     expect(parsed.overview).toStrictEqual(
       "session audio:0 video:0 application:1 unknown:0"
     );
@@ -358,7 +358,7 @@ describe("SessionDescription", () => {
     const mediaDescriptions = mediaLines.map(
       (lines) => new MediaDescription(lines)
     );
-    const parsed = new SessionDescriptions(lines);
+    const parsed = new SessionDescription(lines);
     expect(parsed.overview).toStrictEqual(
       "session audio:1 video:1 application:1 unknown:0"
     );

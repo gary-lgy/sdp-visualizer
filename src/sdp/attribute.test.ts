@@ -1,4 +1,4 @@
-import { Attribute } from "./attribute";
+import { Attribute } from "./Attribute";
 
 describe("Attribute", () => {
   test("empty input => null", () => {

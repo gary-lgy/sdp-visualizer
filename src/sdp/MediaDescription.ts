@@ -1,6 +1,6 @@
-import { Attribute } from "./attribute";
-import { CodecParameters } from "./codec_parameters";
-import { SSRCParameters } from "./ssrc_parameters";
+import { Attribute } from "./Attribute";
+import { CodecParameters } from "./CodecParameters";
+import { SSRCParameters } from "./SSRCParameters";
 import { SDPSection } from "./types";
 
 export class MediaDescription implements SDPSection {

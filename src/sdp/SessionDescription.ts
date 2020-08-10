@@ -1,4 +1,4 @@
-import { MediaDescription } from "./media_description";
+import { MediaDescription } from "./MediaDescription";
 import { SDPSection } from "./types";
 
 export class SessionDescription implements SDPSection {

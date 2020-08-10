@@ -1,4 +1,4 @@
-import { CodecParameters } from "./codec_parameters";
+import { CodecParameters } from "./CodecParameters";
 
 describe("CodecParameters", () => {
   test("empty input => invalid", () => {

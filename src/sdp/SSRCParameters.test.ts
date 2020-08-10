@@ -1,4 +1,4 @@
-import { SSRCParameters } from "./ssrc_parameters";
+import { SSRCParameters } from "./SSRCParameters";
 
 describe("SSRCParameters", () => {
   test("empty input => invalid", () => {

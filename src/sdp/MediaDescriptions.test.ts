@@ -1,6 +1,6 @@
-import { CodecParameters } from "./codec_parameters";
-import { MediaDescription } from "./media_description";
-import { SSRCParameters } from "./ssrc_parameters";
+import { CodecParameters } from "./CodecParameters";
+import { MediaDescription } from "./MediaDescription";
+import { SSRCParameters } from "./SSRCParameters";
 
 describe("MediaDescription", () => {
   test("empty input => invalid", () => {

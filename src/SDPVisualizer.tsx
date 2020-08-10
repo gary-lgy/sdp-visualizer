@@ -7,7 +7,7 @@ import {
   useTheme,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { SessionDescription } from "./sdp/session_description";
+import { SessionDescription } from "./sdp/SessionDescription";
 import { SDPSectionDisplay } from "./SDPSectionDisplay";
 
 const useStyles = makeStyles((theme: Theme) => ({
