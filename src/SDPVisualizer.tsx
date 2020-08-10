@@ -1,5 +1,12 @@
-import { Box, Button, makeStyles, Theme, useTheme } from "@material-ui/core";
-import React from "react";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  makeStyles,
+  Theme,
+  useTheme,
+} from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 import { SessionDescriptions } from "./sdp/session_description";
 import { SDPSectionDisplay } from "./SDPSectionDisplay";
 
@@ -18,13 +25,24 @@ type Props = {
   onEndVisualization: () => void;
 };
 
-export const SDPVisualizer: React.FC<Props> = (props) => {
+export const SDPVisualizer: React.FC<Props> = ({ sdp, onEndVisualization }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const sessionDescription = new SessionDescriptions(
-    props.sdp.trim().split(/(\n|\r\n|\r)+/)
-  );
+  const [
+    sessionDescription,
+    setSessionDescription,
+  ] = useState<SessionDescriptions | null>(null);
 
+  // In case it is expensive to construct a SessionDescription instance, do it asynchronously.
+  useEffect(() => {
+    new Promise<SessionDescriptions>((resolve) => {
+      resolve(new SessionDescriptions(sdp.trim().split(/(\n|\r\n|\r)+/)));
+    }).then((desc: SessionDescriptions) => setSessionDescription(desc));
+  }, [sdp]);
+
+  if (sessionDescription === null) {
+    return <CircularProgress />;
+  }
   return (
     <Box className={classes.root}>
       <SDPSectionDisplay section={sessionDescription} />
@@ -32,7 +50,7 @@ export const SDPVisualizer: React.FC<Props> = (props) => {
         className={classes.button}
         color="primary"
         variant="contained"
-        onClick={props.onEndVisualization}
+        onClick={onEndVisualization}
       >
         Back
       </Button>
