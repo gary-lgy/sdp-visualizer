@@ -1,6 +1,6 @@
-import React from "react";
 import { Box, CssBaseline, Typography } from "@material-ui/core";
-import { VisualizerContainer } from "./VisualizerContainer";
+import React from "react";
+import { VisualizerContainer } from "./components/VisualizerContainer";
 
 function App() {
   return (
