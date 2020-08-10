@@ -1,7 +1,7 @@
 import { SDPSection } from "./types";
 
 export class CodecParameters implements SDPSection {
-  private static readonly RTPMAP_REGEX = /a=rtpmap:(?<payloadType>\d+) (?<codecName>\w+)\/(?<clockrate>\d+)/;
+  private static readonly RTPMAP_REGEX = /^a=rtpmap:(?<payloadType>\d+) (?<codecName>\w+)\/(?<clockrate>\d+)$/;
 
   readonly ownLines: string[];
   readonly subSections: SDPSection[] = [];

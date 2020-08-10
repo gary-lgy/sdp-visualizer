@@ -66,4 +66,15 @@ describe("CodecParameters", () => {
     expect(parsed.codecName).toStrictEqual("VP8");
     expect(parsed.clockrate).toStrictEqual("90000");
   });
+
+  test("disallow partial match", () => {
+    const lines = ["123a=rtpmap:100 VP8/90000"];
+    const parsed = new CodecParameters(lines);
+    expect(parsed.overview).toStrictEqual("rtpmap pt:? codec:? clockrate:?");
+    expect(parsed.ownLines).toStrictEqual(lines);
+    expect(parsed.subSections).toStrictEqual([]);
+    expect(parsed.payloadType).toBeNull();
+    expect(parsed.codecName).toBeNull();
+    expect(parsed.clockrate).toBeNull();
+  });
 });

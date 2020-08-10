@@ -66,4 +66,9 @@ describe("Attribute", () => {
       expect(parsed?.value).toStrictEqual(tc[2]);
     }
   });
+
+  test("disallow partial match", () => {
+    const parsed = Attribute.parse("123a=ice-ufrag:Oyef7uvBlwafI3hT");
+    expect(parsed).toBeNull();
+  });
 });

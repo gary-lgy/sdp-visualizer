@@ -1,5 +1,5 @@
 export class Attribute {
-  static readonly REGEX = /a=(?<key>[\w-]+)(:(?<value>.+))?/;
+  static readonly REGEX = /^a=(?<key>[\w-]+)(:(?<value>.+))?$/;
 
   constructor(readonly key: string, readonly value: string | null) {}
 
