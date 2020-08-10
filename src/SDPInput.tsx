@@ -1,12 +1,12 @@
-import React from "react";
 import {
-  TextField,
+  Box,
   Button,
   makeStyles,
+  TextField,
   Theme,
   useTheme,
-  Box,
 } from "@material-ui/core";
+import React from "react";
 
 interface Props {
   onSubmit: () => void;
@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: theme.spacing(2),
   },
   buttonGroup: {
-    margin: theme.spacing(2),
     "& > *": {
       margin: theme.spacing(2),
     },
@@ -54,7 +53,7 @@ export const SDPInput: React.FC<Props> = (props) => {
         onChange={handleTextValueChange}
         variant="outlined"
         multiline
-        rows="4"
+        autoFocus
         fullWidth
         placeholder="Paste the SDP here"
       />
