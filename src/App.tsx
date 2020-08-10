@@ -1,12 +1,13 @@
-import { Box, CssBaseline, Typography } from "@material-ui/core";
+import { Box, CssBaseline } from "@material-ui/core";
 import React from "react";
+import { NavBar } from "./components/NavBar";
 import { VisualizerContainer } from "./components/VisualizerContainer";
 
 function App() {
   return (
     <Box>
       <CssBaseline />
-      <Typography variant="h3">SDP Visualizer</Typography>
+      <NavBar title="SDP Visualizer" />
       <VisualizerContainer />
     </Box>
   );
