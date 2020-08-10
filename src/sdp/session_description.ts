@@ -1,7 +1,7 @@
-import { SDPSection } from "./types";
 import { MediaDescription } from "./media_description";
+import { SDPSection } from "./types";
 
-export class SessionDescriptions implements SDPSection {
+export class SessionDescription implements SDPSection {
   readonly ownLines: string[] = [];
   readonly mediaDescriptitons: MediaDescription[] = [];
   get subSections(): SDPSection[] {

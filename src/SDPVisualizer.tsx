@@ -7,7 +7,7 @@ import {
   useTheme,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { SessionDescriptions } from "./sdp/session_description";
+import { SessionDescription } from "./sdp/session_description";
 import { SDPSectionDisplay } from "./SDPSectionDisplay";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -31,13 +31,13 @@ export const SDPVisualizer: React.FC<Props> = ({ sdp, onEndVisualization }) => {
   const [
     sessionDescription,
     setSessionDescription,
-  ] = useState<SessionDescriptions | null>(null);
+  ] = useState<SessionDescription | null>(null);
 
   // In case it is expensive to construct a SessionDescription instance, do it asynchronously.
   useEffect(() => {
-    new Promise<SessionDescriptions>((resolve) => {
-      resolve(new SessionDescriptions(sdp.trim().split(/(\n|\r\n|\r)+/)));
-    }).then((desc: SessionDescriptions) => setSessionDescription(desc));
+    new Promise<SessionDescription>((resolve) => {
+      resolve(new SessionDescription(sdp.trim().split(/(\n|\r\n|\r)+/)));
+    }).then((desc: SessionDescription) => setSessionDescription(desc));
   }, [sdp]);
 
   if (sessionDescription === null) {
