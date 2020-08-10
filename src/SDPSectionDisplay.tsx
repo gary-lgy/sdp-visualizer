@@ -28,7 +28,7 @@ export const SDPSectionDisplay: React.FC<Props> = ({ section }) => {
   const classes = useStyles();
 
   return (
-    <Accordion>
+    <Accordion TransitionProps={{ unmountOnExit: true }}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography className={classes.accordionSummaryTypography}>
           {section.overview}
